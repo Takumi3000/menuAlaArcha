@@ -5,23 +5,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu Ala Archa</title>
     <style>
-        body, html {
+        body {
             margin: 0;
             padding: 0;
-            height: 100%;
-            overflow: hidden;
-            background-color: #111;
+            background-color: #000; /* Черный фон выглядит премиально */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
-        object {
+        .menu-container {
             width: 100%;
-            height: 100%;
+            max-width: 600px; /* Оптимально для мобильных телефонов */
+        }
+        img {
+            display: block;
+            width: 100%;
+            height: auto;
+            margin-bottom: 0; /* Убираем зазоры, чтобы меню шло сплошным полотном */
+        }
+        /* Плавная прокрутка */
+        html {
+            scroll-behavior: smooth;
         }
     </style>
 </head>
 <body>
-    <object data="page.pdf" type="application/pdf">
-        <embed src="page.pdf" type="application/pdf" />
-        <p>Ваш браузер не поддерживает PDF. <a href="page.pdf">Скачать меню</a></p>
-    </object>
+
+    <div class="menu-container">
+        <img src="page_page-0001.jpg">
+        <img src="page_page-0002.jpg">
+        <img src="page_page-0003.jpg">
+        <img src="page_page-0004.jpg">
+        <img src="page_page-0005.jpg">
+        <img src="page_page-0006.jpg">
+        <img src="page_page-0007.jpg">
+        <img src="page_page-0008.jpg">
+        <img src="page_page-0009.jpg">
+        <img src="page_page-00010.jpg">
+        <img src="page_page-00011.jpg">
+        <img src="page_page-00012.jpg">
+    </div>
+
 </body>
 </html>
