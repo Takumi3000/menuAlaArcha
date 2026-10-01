@@ -4,51 +4,113 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Меню — ЦО Хан-Теңири</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #0d1b2a;
-            --card-bg: #1b263b;
-            --accent-gold: #e0a96d;
-            --text-light: #f4f4f9;
-            --text-muted: #a3b18a;
+            --bg-main: #f8fafc;
+            --card-bg: #ffffff;
+            --primary: #0284c7;
+            --primary-light: #e0f2fe;
+            --accent-green: #10b981;
+            --accent-green-bg: #ecfdf5;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
         }
 
         body {
-            background-color: var(--bg-color);
-            color: var(--text-light);
-            padding-bottom: 40px;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            padding-bottom: 50px;
         }
 
+        /* Top Bar & Language Selector */
+        .top-bar {
+            background: var(--card-bg);
+            border-bottom: 1px solid var(--border-color);
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .lang-switch {
+            display: flex;
+            gap: 6px;
+            background: #f1f5f9;
+            padding: 4px;
+            border-radius: 20px;
+        }
+
+        .lang-btn {
+            border: none;
+            background: transparent;
+            padding: 6px 14px;
+            border-radius: 16px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .lang-btn.active {
+            background: var(--card-bg);
+            color: var(--primary);
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* Header */
         header {
             text-align: center;
-            padding: 30px 20px;
-            background: linear-gradient(180deg, #0d1b2a 0%, #1b263b 100%);
-            border-bottom: 2px solid var(--accent-gold);
+            padding: 30px 20px 20px;
+            background: linear-gradient(180deg, #ffffff 0%, #f0f9ff 100%);
+            border-bottom: 1px solid #bae6fd;
+        }
+
+        .logo-icon {
+            width: 70px;
+            height: 70px;
+            margin-bottom: 10px;
+            background: var(--accent-green-bg);
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-green);
+            font-size: 2rem;
+            border: 2px solid #a7f3d0;
         }
 
         header h1 {
-            color: var(--accent-gold);
-            font-size: 2.2rem;
-            letter-spacing: 2px;
-            margin-bottom: 8px;
+            color: #0369a1;
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 6px;
         }
 
         header p {
             font-size: 0.95rem;
-            color: #ccc;
+            color: var(--text-muted);
         }
 
+        /* Controls */
         .controls {
-            max-width: 800px;
+            max-width: 900px;
             margin: 20px auto;
-            padding: 0 15px;
+            padding: 0 20px;
             display: flex;
             flex-direction: column;
             gap: 15px;
@@ -56,233 +118,439 @@
 
         .search-box input {
             width: 100%;
-            padding: 12px 18px;
-            border-radius: 25px;
-            border: 1px solid var(--accent-gold);
-            background: #0d1b2a;
-            color: #fff;
+            padding: 14px 20px;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            background: var(--card-bg);
+            color: var(--text-main);
             font-size: 1rem;
             outline: none;
+            box-shadow: var(--shadow-sm);
+            transition: border-color 0.2s;
+        }
+
+        .search-box input:focus {
+            border-color: var(--primary);
         }
 
         .categories {
             display: flex;
-            gap: 10px;
+            gap: 8px;
             overflow-x: auto;
             padding-bottom: 8px;
-            scrollbar-width: thin;
+            scrollbar-width: none;
+        }
+
+        .categories::-webkit-scrollbar {
+            display: none;
         }
 
         .cat-btn {
-            background: #1b263b;
-            color: var(--text-light);
-            border: 1px solid #415a77;
-            padding: 8px 16px;
-            border-radius: 20px;
+            background: var(--card-bg);
+            color: var(--text-muted);
+            border: 1px solid var(--border-color);
+            padding: 10px 18px;
+            border-radius: 25px;
             white-space: nowrap;
+            font-size: 0.9rem;
+            font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
+            box-shadow: var(--shadow-sm);
         }
 
-        .cat-btn.active, .cat-btn:hover {
-            background: var(--accent-gold);
-            color: #0d1b2a;
-            font-weight: bold;
-            border-color: var(--accent-gold);
+        .cat-btn.active {
+            background: var(--primary);
+            color: #ffffff;
+            border-color: var(--primary);
         }
 
+        .cat-btn:hover:not(.active) {
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+
+        /* Menu Grid */
         .menu-grid {
-            max-width: 900px;
+            max-width: 950px;
             margin: 0 auto;
-            padding: 0 15px;
+            padding: 0 20px;
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
+            gap: 22px;
         }
 
         .card {
             background: var(--card-bg);
-            border-radius: 12px;
-            padding: 20px;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .card-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            background-color: #e2e8f0;
+        }
+
+        .card-body {
+            padding: 18px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            border: 1px solid #2b3a4e;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            flex-grow: 1;
         }
 
         .card-header {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            margin-bottom: 10px;
+            gap: 10px;
+            margin-bottom: 8px;
         }
 
         .card-title {
-            font-size: 1.2rem;
-            color: #fff;
-            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--text-main);
+            font-weight: 700;
+            line-height: 1.3;
         }
 
-        .price {
-            color: var(--accent-gold);
-            font-size: 1.1rem;
-            font-weight: bold;
+        .price-badge {
+            background: var(--accent-green-bg);
+            color: var(--accent-green);
+            padding: 6px 12px;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            font-weight: 700;
             white-space: nowrap;
-            margin-left: 10px;
+            border: 1px solid #a7f3d0;
         }
 
         .desc {
             font-size: 0.88rem;
-            color: #bdc3c7;
-            line-height: 1.4;
-        }
-
-        .weight {
-            font-size: 0.8rem;
             color: var(--text-muted);
-            margin-top: 8px;
+            line-height: 1.5;
         }
 
         footer {
             text-align: center;
-            margin-top: 40px;
+            margin-top: 50px;
+            padding: 20px;
             font-size: 0.85rem;
-            color: #777;
+            color: var(--text-muted);
         }
     </style>
 </head>
 <body>
 
+    <div class="top-bar">
+        <span style="font-weight: 700; color: var(--primary); font-size: 0.9rem;">ЦО ХАН-ТЕҢИРИ</span>
+        <div class="lang-switch">
+            <button class="lang-btn active" onclick="setLanguage('ru', this)">РУС</button>
+            <button class="lang-btn" onclick="setLanguage('kg', this)">КЫРГ</button>
+            <button class="lang-btn" onclick="setLanguage('en', this)">ENG</button>
+        </div>
+    </div>
+
     <header>
-        <h1>ХАН-ТЕҢИРИ</h1>
-        <p>Добро пожаловать! / Кош келиңиздер! / Welcome!</p>
+        <div class="logo-icon">🏔️</div>
+        <h1 id="headerTitle">ХАН-ТЕҢИРИ</h1>
+        <p id="headerSubtitle">Добро пожаловать в наш центр отдыха!</p>
     </header>
 
     <div class="controls">
         <div class="search-box">
-            <input type="text" id="searchInput" placeholder="Поиск блюда / Тамак издөө / Search..." oninput="filterMenu()">
+            <input type="text" id="searchInput" placeholder="Поиск блюд..." oninput="filterMenu()">
         </div>
-        <div class="categories" id="catContainer">
-            <button class="cat-btn active" onclick="selectCat('all', this)">Все</button>
-            <button class="cat-btn" onclick="selectCat('breakfast', this)">Завтраки</button>
-            <button class="cat-btn" onclick="selectCat('salads', this)">Салаты</button>
-            <button class="cat-btn" onclick="selectCat('starters', this)">Закуски</button>
-            <button class="cat-btn" onclick="selectCat('soups', this)">Супы</button>
-            <button class="cat-btn" onclick="selectCat('mains', this)">Основные блюда</button>
-            <button class="cat-btn" onclick="selectCat('desserts', this)">Десерты</button>
-            <button class="cat-btn" onclick="selectCat('drinks', this)">Напитки</button>
-            <button class="cat-btn" onclick="selectCat('bakery', this)">Выпечка</button>
-        </div>
+        <div class="categories" id="catContainer"></div>
     </div>
 
     <div class="menu-grid" id="menuGrid"></div>
 
     <footer>
-        <p>© ЦО Хан-Теңири. Время приготовления блюд: 30-40 мин.</p>
+        <p id="footerText">© ЦО Хан-Теңири. Время приготовления блюд: 30-40 минут.</p>
     </footer>
 
     <script>
-        const menuData = [
+        let currentLang = 'ru';
+        let currentCat = 'all';
+
+        const i18n = {
+            ru: {
+                subtitle: 'Добро пожаловать в наш центр отдыха!',
+                searchPlaceholder: 'Поиск блюд...',
+                footer: '© ЦО Хан-Теңири. Время приготовления блюд в среднем 30-40 минут.',
+                currency: 'сом',
+                cats: {
+                    all: 'Все',
+                    breakfast: 'Завтраки',
+                    salads: 'Салаты',
+                    starters: 'Закуски',
+                    soups: 'Супы',
+                    mains: 'Основные блюда',
+                    desserts: 'Десерты',
+                    drinks: 'Напитки',
+                    bakery: 'Выпечка'
+                }
+            },
+            kg: {
+                subtitle: 'Эс алуу борборубузга кош келиңиздер!',
+                searchPlaceholder: 'Тамактарды издөө...',
+                footer: '© ЦО Хан-Теңири. Тамактарды даярдоо убактысы 30-40 мүнөт.',
+                currency: 'сом',
+                cats: {
+                    all: 'Бардыгы',
+                    breakfast: 'Таңкы тамактар',
+                    salads: 'Салаттар',
+                    starters: 'Даамдар',
+                    soups: 'Суюк тамактар',
+                    mains: 'Негизги тамактар',
+                    desserts: 'Таттуулар',
+                    drinks: 'Суусундуктар',
+                    bakery: 'Нан азыктары'
+                }
+            },
+            en: {
+                subtitle: 'Welcome to Khan-Tengri Recreation Center!',
+                searchPlaceholder: 'Search dishes...',
+                footer: '© Khan-Tengri Center. Food preparation time is 30-40 minutes.',
+                currency: 'som',
+                cats: {
+                    all: 'All',
+                    breakfast: 'Breakfast',
+                    salads: 'Salads',
+                    starters: 'Starters',
+                    soups: 'Soups',
+                    mains: 'Main Dishes',
+                    desserts: 'Desserts',
+                    drinks: 'Drinks',
+                    bakery: 'Bakery'
+                }
+            }
+        };
+
+        const menuItems = [
             // Завтраки
-            { cat: 'breakfast', name: 'Овсяная каша / Сулу боткосу', desc: 'На молоке с ягодами / Сүт менен даярдалган, мөмө-жемиштер менен', price: '420 сом' },
-            { cat: 'breakfast', name: 'Рисовая каша / Күрүч боткосу', desc: 'На молоке, со сливочным маслом и ягодами', price: '400 сом' },
-            { cat: 'breakfast', name: 'Манная каша / Манна боткосу', desc: 'На молоке с яблочным чатни, гранолой и сливочным маслом', price: '400 сом' },
-            { cat: 'breakfast', name: 'Фирменный Завтрак Хан-Теңири', desc: 'Манго, авокадо, микс салат, куриный шницель, жайя из конины, яйцо глазунья', price: '1090 сом' },
-            { cat: 'breakfast', name: 'Омлет с форелью и пармезаном', desc: 'Микс зелени, мусс пармезан, вяленые помидоры, запечённый перец, слабосолёная форель', price: '800 сом' },
-            { cat: 'breakfast', name: 'Блины / Куймактар', desc: 'С домашней сметаной или со сгущёнкой', price: '520 сом' },
-            { cat: 'breakfast', name: 'Сырники с ягодами', desc: 'Нежный творог, яйцо, сливки, мука, свежие ягоды', price: '520 сом' },
-            { cat: 'breakfast', name: 'Английский завтрак', desc: 'Охотничьи сосиски, помидоры на гриле, запеченный картофель, чиабатта, яйцо, микс салата', price: '950 сом' },
-            { cat: 'breakfast', name: 'Шакшука', desc: 'Яйца, тушённые в ароматном соусе из томата, сыр фета, лук и специи', price: '950 сом' },
+            {
+                cat: 'breakfast',
+                img: 'https://images.unsplash.com/photo-1517673400267-0251440c45dc?w=600&auto=format&fit=crop',
+                price: 420,
+                ru: { name: 'Овсяная каша', desc: 'Овсяная каша на молоке с ягодами' },
+                kg: { name: 'Сулу боткосу', desc: 'Сүт менен даярдалган сулу боткосу, мөмө-жемиштер менен' },
+                en: { name: 'Oatmeal', desc: 'Oatmeal cooked with milk and served with fresh berries' }
+            },
+            {
+                cat: 'breakfast',
+                img: 'https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?w=600&auto=format&fit=crop',
+                price: 1090,
+                ru: { name: 'Фирменный Завтрак Хан-Теңири', desc: 'Манго, авокадо, микс салат, куриный шницель, жайя из конины, яйцо глазунья' },
+                kg: { name: 'Хан-Теңири фирмалык таңкы тамагы', desc: 'Манго, авокадо, салат микси, тооктун көкүрөк эти, жылкынын жаясы жана глазунья' },
+                en: { name: 'Khan-Tengri Signature Breakfast', desc: 'Fresh mango, avocado, mixed salad, chicken breast, horsemeat jaya, eggs' }
+            },
+            {
+                cat: 'breakfast',
+                img: 'https://images.unsplash.com/photo-1528207776546-365bb710ee93?w=600&auto=format&fit=crop',
+                price: 520,
+                ru: { name: 'Сырники с ягодами', desc: 'Нежный творог, яйцо, сливки, мука и свежие ягоды' },
+                kg: { name: 'Мөмө-жемиштер менен быштак куймагы', desc: 'Назик быштак, жумуртка, каймак, ун жана жаңы мөмө-жемиштер' },
+                en: { name: 'Cottage Cheese Pancakes', desc: 'Tender cottage cheese, eggs, cream, flour, and fresh berries' }
+            },
+            {
+                cat: 'breakfast',
+                img: 'https://images.unsplash.com/photo-1590412200988-a436970781fa?w=600&auto=format&fit=crop',
+                price: 950,
+                ru: { name: 'Шакшука', desc: 'Яйца, тушённые в ароматном соусе из томата, сыр фета, лук и специи' },
+                kg: { name: 'Шакшука', desc: 'Томат соуста бышырылган жумурткасы, фета сыры, пияз жана татымалдар' },
+                en: { name: 'Shakshuka', desc: 'Eggs simmered in aromatic tomato sauce with feta cheese, onion, and spices' }
+            },
 
             // Салаты
-            { cat: 'salads', name: 'Салат Цезарь', desc: 'Куриное бедро, салат айсберг, томаты черри, хрустящий хлеб, соус Цезарь, пармезан', price: '800 сом' },
-            { cat: 'salads', name: 'Хрустящие баклажаны со страчателлой', desc: 'Обжаренные баклажаны, творожный сыр, кинза, кунжут, соус Криспи', price: '700 сом' },
-            { cat: 'salads', name: 'Салат со свеклой', desc: 'Свёкла, рукола, грецкий орех, апельсин, оливковое масло', price: '800 сом' },
-            { cat: 'salads', name: 'Капрезе', desc: 'Авокадо, узбекские помидоры, сыр моцарелла, зелень, соус песто', price: '900 сом' },
-            { cat: 'salads', name: 'Зеленый салат', desc: 'Микс салат, яблоко, брокколи, цукини, микс семечки, авокадо, 2 яйца, огурец', price: '890 сом' },
-            { cat: 'salads', name: 'Греческий салат', desc: 'Огурцы, помидоры, перец, микс зелени, оливки, каперсы, греческая заправка', price: '750 сом' },
-            { cat: 'salads', name: 'Фирменный салат Хан-Теңири', desc: 'Говядина, запеченный картофель, азиатский соус, стручковая фасоль, микс салата', price: '950 сом' },
-
-            // Выпечка
-            { cat: 'bakery', name: 'Хлебная корзина', desc: 'Зерновой тартин, чиабатта, бородинский хлеб', price: '450 сом' },
-            { cat: 'bakery', name: 'Боорсок', desc: 'Подаются со сметаной', price: '350 сом' },
+            {
+                cat: 'salads',
+                img: 'https://images.unsplash.com/photo-1550304943-4f24f54ddde9?w=600&auto=format&fit=crop',
+                price: 800,
+                ru: { name: 'Салат Цезарь', desc: 'Куриное бедро, салат айсберг, томаты черри, хрустящий хлеб, соус Цезарь и пармезан' },
+                kg: { name: 'Цезарь салаты', desc: 'Тооктун сан эти, айсберг салаты, черри помидорлору, кытырак нан, Цезарь соусу' },
+                en: { name: 'Caesar Salad', desc: 'Chicken thigh, iceberg lettuce, cherry tomatoes, crispy bread, Caesar dressing, Parmesan' }
+            },
+            {
+                cat: 'salads',
+                img: 'https://images.unsplash.com/photo-1540420773420-3366772f4999?w=600&auto=format&fit=crop',
+                price: 700,
+                ru: { name: 'Хрустящие баклажаны со страчателлой', desc: 'Обжаренные баклажаны, творожный сыр, кинза, кунжут и соус Криспи' },
+                kg: { name: 'Страчателла менен кытырак баклажан', desc: 'Куурулган баклажан, творожный сыр, кинза, кунжут жана Криспи соусу' },
+                en: { name: 'Crispy Eggplant with Stracciatella', desc: 'Eggplant fried until crispy, cottage cheese, cilantro, sesame, crispy sauce' }
+            },
+            {
+                cat: 'salads',
+                img: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=600&auto=format&fit=crop',
+                price: 750,
+                ru: { name: 'Греческий салат', desc: 'Свежие огурцы, помидоры, красный перец, микс зелени, оливки, каперсы, орегано' },
+                kg: { name: 'Грек салаты', desc: 'Жаңы бадыраң, помидор, болгар калемпири, жашылчалардын микси, зайтун, грек соусу' },
+                en: { name: 'Greek Salad', desc: 'Fresh cucumbers, tomatoes, bell pepper, mixed greens, olives, capers, Greek dressing' }
+            },
 
             // Закуски
-            { cat: 'starters', name: 'Мясное Ассорти', desc: 'Копчёная курица, жая из конины, брискет, казы, карта, чучук', price: '2400 сом' },
-            { cat: 'starters', name: 'Ассорти из свежих овощей', desc: 'Томаты, огурцы, сельдерей, брокколи, цветная капуста, морковь, брынза', price: '800 сом' },
-            { cat: 'starters', name: 'Слабосолёный лосось с запеченным картофелем', desc: 'Лосось, картофель, корнишоны, маринованный лук', price: '1300 сом' },
-            { cat: 'starters', name: 'Фиш-энд-чипс с морепродуктами', desc: 'Кальмар, креветки, форель, чипсы из цукини, соус айоли', price: '1200 сом' },
-            { cat: 'starters', name: 'Сырная тарелка', desc: 'Пармезан, чеддер, камамбер, дорблю, ягоды, орехи, горный мед', price: '2100 сом' },
+            {
+                cat: 'starters',
+                img: 'https://images.unsplash.com/photo-1544025162-d76694265947?w=600&auto=format&fit=crop',
+                price: 2400,
+                ru: { name: 'Мясное Ассорти', desc: 'Копчёная курица, жая из конины, брискет, казы, карта и копчёный чучук' },
+                kg: { name: 'Эт ассорти', desc: 'Ышталган тоок эти, жылкынын жаясы, казы, карта жана чучук' },
+                en: { name: 'Meat Assortment', desc: 'Smoked chicken, horsemeat jaya, beef brisket, kazy, karta, smoked chuchuk' }
+            },
+            {
+                cat: 'starters',
+                img: 'https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=600&auto=format&fit=crop',
+                price: 2100,
+                ru: { name: 'Сырная тарелка', desc: 'Пармезан, чеддер, камамбер, дорблю, ягоды, орехи, горный мед' },
+                kg: { name: 'Сыр табагы', desc: 'Пармезан, чеддер, камамбер, дорблю. Жемиштер, жаңгактар жана тоо балы' },
+                en: { name: 'Cheese Platter', desc: 'Parmesan, cheddar, Camembert, Dorblu, served with berries, nuts, mountain honey' }
+            },
 
             // Супы
-            { cat: 'soups', name: 'Горный Шорпо', desc: 'Говяжий бульон, говяжье ребро, картофель, морковь, нут', price: '700 сом' },
-            { cat: 'soups', name: 'Борщ', desc: 'Свёкла, капуста, говяжий бульон, брискет, айран, чесночный хлеб', price: '610 сом' },
-            { cat: 'soups', name: 'Том Ям', desc: 'Креветки, сибас, форель, кокосовое молоко, рис, кинза, лемонграсс', price: '900 сом' },
-            { cat: 'soups', name: 'Рамен', desc: 'Куриная грудка, сыр чеддер, куриные яйца, лапша', price: '650 сом' },
-            { cat: 'soups', name: 'Пельмени', desc: 'Домашние пельмени с телятиной, говяжий бульон, укроп', price: '500 сом' },
+            {
+                cat: 'soups',
+                img: 'https://images.unsplash.com/photo-1547592166-23ac45744acd?w=600&auto=format&fit=crop',
+                price: 700,
+                ru: { name: 'Горный Шорпо', desc: 'Насыщенный говяжий бульон, говяжье ребро, картофель, морковь, нут' },
+                kg: { name: 'Шорпо', desc: 'Уй шорпосу, уйдун кабыргасы, картөшкө, сабиз жана нокот' },
+                en: { name: 'Mountain Shorpo', desc: 'Rich beef broth with beef ribs, potatoes, carrots, and chickpeas' }
+            },
+            {
+                cat: 'soups',
+                img: 'https://images.unsplash.com/photo-1547592180-85f173990554?w=600&auto=format&fit=crop',
+                price: 900,
+                ru: { name: 'Том Ям', desc: 'Креветки, сибас, форель, кокосовое молоко, рис, кинза, лемонграсс' },
+                kg: { name: 'Том Ям', desc: 'Креветка, сибас, форель, кокос сүтү, күрүч, кунжут, кинза, лимонграсс' },
+                en: { name: 'Tom Yum', desc: 'Shrimp, sea bass, trout, coconut milk, rice, sesame, cilantro, lemongrass' }
+            },
 
             // Основные блюда
-            { cat: 'mains', name: 'Куурдак из баранины', desc: 'Каре ягненка, запеченный картофель, лук, микс зелени', price: '1200 сом' },
-            { cat: 'mains', name: 'Цыплёнок на гриле', desc: 'Маринованный цыплёнок, картофель чимичурри, томатная сальса', price: '1100 сом' },
-            { cat: 'mains', name: 'Дорадо на гриле', desc: 'Дорадо, лимон, рыбный соус, соус Чимичурри', price: '2200 сом' },
-            { cat: 'mains', name: 'Фетучини', desc: 'Паста Фетучини, копченая курица', price: '1100 сом' },
-            { cat: 'mains', name: 'Рибай с овощами', desc: 'Рибай стейк, овощи гриль', price: '2300 сом' },
-            { cat: 'mains', name: 'Ковбой стейк', desc: 'Овощи на гриле, соус демиглас, руккола', price: '2300 сом' },
-            { cat: 'mains', name: 'Стейк из лосося', desc: 'Семга, спаржа, зеленый соус, лимон', price: '1800 сом' },
-            { cat: 'mains', name: 'Баранья лопатка', desc: 'Лопатка баранины, запечённый картофель, хрустящий баклажан, зелень', price: '3200 сом' },
-            { cat: 'mains', name: 'Бургер с говядиной', desc: 'Котлета из говядины, манговый айоли, барбекю, сыр, фри', price: '900 сом' },
+            {
+                cat: 'mains',
+                img: 'https://images.unsplash.com/photo-1544025162-d76694265947?w=600&auto=format&fit=crop',
+                price: 1200,
+                ru: { name: 'Куурдак из баранины', desc: 'Каре ягненка, запеченный картофель, репчатый лук, микс зелени, сливочное масло' },
+                kg: { name: 'Куурдак', desc: 'Койдун кабыргасы, куурулган картөшкө, маринаддалган пияз, сары май' },
+                en: { name: 'Lamb Kuurdak', desc: 'Lamb rack, roasted potatoes, onion, mixed greens, butter' }
+            },
+            {
+                cat: 'mains',
+                img: 'https://images.unsplash.com/photo-1558030006-450675393462?w=600&auto=format&fit=crop',
+                price: 2300,
+                ru: { name: 'Стейк Рибай с овощами', desc: 'Сочный стейк Рибай, овощи на гриле, фирменный соус' },
+                kg: { name: 'Жашылчалар менен Рибай стейк', desc: 'Рибай стейк, грильде бышырылган жашылчалар' },
+                en: { name: 'Ribeye Steak with Vegetables', desc: 'Juicy Ribeye steak served with grilled vegetables' }
+            },
+            {
+                cat: 'mains',
+                img: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&auto=format&fit=crop',
+                price: 900,
+                ru: { name: 'Бургер с говядиной', desc: 'Котлета из говядины, манговый айоли, барбекю соус, сыр, картофель фри' },
+                kg: { name: 'Бургер', desc: 'Уй этинен жасалган котлета, манго айоли, барбекю соусу, фри картөшкөсү' },
+                en: { name: 'Beef Burger with Fries', desc: 'Beef patty, mango aioli, barbecue sauce, mozzarella, cheddar, fries' }
+            },
 
             // Десерты
-            { cat: 'desserts', name: 'Манго милфей', desc: 'Манго, сливочный крем, пюре маракуйи', price: '850 сом' },
-            { cat: 'desserts', name: 'Тирамису', desc: 'Классический итальянский десерт с савоярди и эспрессо', price: '600 сом' },
-            { cat: 'desserts', name: 'Фруктовая тарелка', desc: 'Сезонные фрукты (1 кг)', price: '2800 сом' },
+            {
+                cat: 'desserts',
+                img: 'https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=600&auto=format&fit=crop',
+                price: 600,
+                ru: { name: 'Тирамису', desc: 'Классический итальянский десерт с маскарпоне и печеньем савоярди' },
+                kg: { name: 'Тирамису боулу', desc: 'Маскарпоне жана савоярди печеньеси менен классикалык италиялык десерт' },
+                en: { name: 'Tiramisu', desc: 'Classic Italian dessert made with mascarpone, cream, and ladyfinger biscuits' }
+            },
 
             // Напитки
-            { cat: 'drinks', name: 'Соки в ассортименте', desc: '1000 мл', price: '210 сом' },
-            { cat: 'drinks', name: 'Cola / Fanta / Sprite', desc: '250 мл', price: '210 сом' },
-            { cat: 'drinks', name: 'Red Bull', desc: '250 мл', price: '300 сом' },
-            { cat: 'drinks', name: 'Листовой чай (Ассам, Эрл Грей, Те Гуань Инь)', desc: '1000 мл', price: '300 сом' }
+            {
+                cat: 'drinks',
+                img: 'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=600&auto=format&fit=crop',
+                price: 300,
+                ru: { name: 'Листовой чай (1000 мл)', desc: 'Ассам, Эрл Грей или Те Гуань Инь на ваш выбор' },
+                kg: { name: 'Листовой чай (1000 мл)', desc: 'Ассам, Эрл Грей же Те Гуань Инь тандоо боюнча' },
+                en: { name: 'Loose Leaf Tea (1000 ml)', desc: 'Assam, Earl Grey, or Tieguanyin' }
+            }
         ];
 
-        let currentCat = 'all';
+        function renderCategories() {
+            const container = document.getElementById('catContainer');
+            const cats = i18n[currentLang].cats;
+            container.innerHTML = '';
+
+            Object.keys(cats).forEach(key => {
+                const btn = document.createElement('button');
+                btn.className = `cat-btn ${key === currentCat ? 'active' : ''}`;
+                btn.innerText = cats[key];
+                btn.onclick = () => {
+                    currentCat = key;
+                    renderCategories();
+                    renderMenu();
+                };
+                container.appendChild(btn);
+            });
+        }
 
         function renderMenu() {
             const grid = document.getElementById('menuGrid');
             const searchVal = document.getElementById('searchInput').value.toLowerCase();
+            const langData = i18n[currentLang];
             grid.innerHTML = '';
 
-            const filtered = menuData.filter(item => {
+            const filtered = menuItems.filter(item => {
                 const matchCat = (currentCat === 'all' || item.cat === currentCat);
-                const matchSearch = item.name.toLowerCase().includes(searchVal) || item.desc.toLowerCase().includes(searchVal);
+                const text = item[currentLang];
+                const matchSearch = text.name.toLowerCase().includes(searchVal) || text.desc.toLowerCase().includes(searchVal);
                 return matchCat && matchSearch;
             });
 
-            if(filtered.length === 0) {
-                grid.innerHTML = '<p style="text-align:center; grid-column: 1/-1; color: #888;">Ничего не найдено</p>';
+            if (filtered.length === 0) {
+                grid.innerHTML = `<p style="text-align:center; grid-column: 1/-1; color: var(--text-muted); padding: 40px 0;">Ничего не найдено / Эч нерсе табылган жок</p>`;
                 return;
             }
 
             filtered.forEach(item => {
+                const text = item[currentLang];
                 const card = document.createElement('div');
                 card.className = 'card';
                 card.innerHTML = `
-                    <div>
-                        <div class="card-header">
-                            <div class="card-title">${item.name}</div>
-                            <div class="price">${item.price}</div>
+                    <img src="${item.img}" class="card-img" alt="${text.name}" loading="lazy">
+                    <div class="card-body">
+                        <div>
+                            <div class="card-header">
+                                <div class="card-title">${text.name}</div>
+                                <div class="price-badge">${item.price} ${langData.currency}</div>
+                            </div>
+                            <div class="desc">${text.desc}</div>
                         </div>
-                        <div class="desc">${item.desc}</div>
                     </div>
                 `;
                 grid.appendChild(card);
             });
         }
 
-        function selectCat(cat, btn) {
-            currentCat = cat;
-            document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+        function setLanguage(lang, btn) {
+            currentLang = lang;
+            document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
+
+            const t = i18n[lang];
+            document.getElementById('headerSubtitle').innerText = t.subtitle;
+            document.getElementById('searchInput').placeholder = t.searchPlaceholder;
+            document.getElementById('footerText').innerText = t.footer;
+
+            renderCategories();
             renderMenu();
         }
 
@@ -291,6 +559,7 @@
         }
 
         // Инициализация
+        renderCategories();
         renderMenu();
     </script>
 </body>
